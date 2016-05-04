@@ -59,6 +59,7 @@
                 <configuration>
                     <bnd><![CDATA[
                         -exportcontents: ${packages;ANNOTATED;org.osgi.annotation.versioning.Version}
+                        -removeheaders: Private-Package,Include-Resource
                     ]]></bnd>
                 </configuration>
             </plugin>
