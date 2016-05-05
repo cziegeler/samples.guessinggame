@@ -58,7 +58,7 @@
                 </executions>
                 <configuration>
                     <bnd><![CDATA[
-                        -exportcontents: ${packages;ANNOTATED;org.osgi.annotation.versioning.Version}
+                        -exportcontents: ${packages;VERSIONED}
                         -removeheaders: Private-Package,Include-Resource
                     ]]></bnd>
                 </configuration>
