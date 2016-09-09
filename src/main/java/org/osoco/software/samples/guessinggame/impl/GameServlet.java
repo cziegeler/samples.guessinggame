@@ -39,8 +39,10 @@ import org.osoco.software.samples.guessinggame.Score;
 
 @Component(service = Servlet.class,
            property = { HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN + "=/game",
-        		        HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT + "=(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME +"=org.osgi.service.http)"})
+        		        HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT + "=(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME +"=" + AppServletContext.NAME + ")"})
 public class GameServlet extends HttpServlet {
+
+	private static final long serialVersionUID = -2382280784117030938L;
 
 	@Reference
 	private GameController game;

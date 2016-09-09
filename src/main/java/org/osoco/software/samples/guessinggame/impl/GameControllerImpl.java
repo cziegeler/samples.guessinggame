@@ -34,7 +34,7 @@ public class GameControllerImpl implements GameController {
 
 	@ObjectClassDefinition(
 			name = "Game Configuration",
-			description = "The configuration for the guessing game.")
+			description = "The configuration for the famous guessing game.")
 	public @interface Config {
 		@AttributeDefinition(name="Easy", description="Maximum value for easy")
 		int easy_max() default 10;
