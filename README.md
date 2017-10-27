@@ -1,2 +1,2 @@
 # samples.guessinggame
-The Guessing Game OSGi Example
+The Guessing Game OSGi Example Version 1
