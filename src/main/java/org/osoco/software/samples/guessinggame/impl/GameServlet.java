@@ -31,15 +31,17 @@ import javax.servlet.http.HttpSession;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
+import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardContextSelect;
+import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPattern;
 import org.osoco.software.samples.guessinggame.Game;
 import org.osoco.software.samples.guessinggame.GameController;
 import org.osoco.software.samples.guessinggame.HighscoreService;
 import org.osoco.software.samples.guessinggame.Level;
 import org.osoco.software.samples.guessinggame.Score;
 
-@Component(service = Servlet.class,
-           property = { HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN + "=/game",
-        		        HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT + "=(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME +"=" + AppServletContext.NAME + ")"})
+@Component(service = Servlet.class)
+@HttpWhiteboardServletPattern("/game")
+@HttpWhiteboardContextSelect("(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME +"=" + AppServletContext.NAME + ")")
 public class GameServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -2382280784117030938L;

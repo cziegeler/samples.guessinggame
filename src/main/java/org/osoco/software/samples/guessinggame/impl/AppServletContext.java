@@ -15,6 +15,11 @@
  */
 package org.osoco.software.samples.guessinggame.impl;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.http.context.ServletContextHelper;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
@@ -32,4 +37,11 @@ import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 public class AppServletContext extends ServletContextHelper {
 
 	public static final String NAME = "org.osoco.software.samples.guessinggame";
+
+	@Override
+	public boolean handleSecurity(HttpServletRequest request, HttpServletResponse response) 
+	throws IOException {
+		
+		return super.handleSecurity(request, response);
+	}
 }
