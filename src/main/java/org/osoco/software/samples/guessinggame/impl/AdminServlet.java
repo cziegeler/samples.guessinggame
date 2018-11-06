@@ -15,52 +15,44 @@
  */
 package org.osoco.software.samples.guessinggame.impl;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
-import org.osoco.software.samples.guessinggame.Game;
-import org.osoco.software.samples.guessinggame.GameController;
 import org.osoco.software.samples.guessinggame.HighscoreService;
-import org.osoco.software.samples.guessinggame.Level;
-import org.osoco.software.samples.guessinggame.Score;
 
-@Component(service = Servlet.class,
-           property = { HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN + "=/admin",
-        		        HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT + "=(" + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME +"=" + AppServletContext.NAME + ")"})
+@Component(service = Servlet.class, property = { HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN + "=/admin",
+        HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT + "=("
+                + HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME + "=" + AppServletContext.NAME + ")" })
 public class AdminServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Reference
-	private HighscoreService highscore;
-	
-	@Override
-	protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
-	throws ServletException, IOException {
-	    resp.setContentType("text/html");
-	    resp.setCharacterEncoding("UTF-8");
-	    final PrintWriter pw = resp.getWriter();
-	    pw.println("<html>");
-	    pw.println("<head>");
-	    pw.println("<title>Guessing Game Admin</title>");
-	    pw.println("</head>");
-	    pw.println("<body>");
-	    pw.println("<h1>Welcome to the OSGi Guessing Game Admin Console</h1>");
-	    pw.println("</body>");
-	    pw.println("</html>");
-	}
+    @Reference
+    private HighscoreService highscore;
+
+    @Override
+    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
+            throws ServletException, IOException {
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("UTF-8");
+        final PrintWriter pw = resp.getWriter();
+        pw.println("<html>");
+        pw.println("<head>");
+        pw.println("<title>Guessing Game Admin</title>");
+        pw.println("</head>");
+        pw.println("<body>");
+        pw.println("<h1>Welcome to the OSGi Guessing Game Admin Console</h1>");
+        pw.println("</body>");
+        pw.println("</html>");
+    }
 
 }

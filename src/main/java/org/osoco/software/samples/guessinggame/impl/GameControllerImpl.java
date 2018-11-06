@@ -15,11 +15,11 @@
  */
 package org.osoco.software.samples.guessinggame.impl;
 
-
 import java.util.Random;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.propertytypes.ServiceDescription;
 import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
@@ -27,58 +27,59 @@ import org.osoco.software.samples.guessinggame.Game;
 import org.osoco.software.samples.guessinggame.GameController;
 import org.osoco.software.samples.guessinggame.Level;
 
-
 @Component
-@Designate( ocd = GameControllerImpl.Config.class )
+@Designate(ocd = GameControllerImpl.Config.class)
+@ServiceDescription("This is the core game component")
 public class GameControllerImpl implements GameController {
 
-	@ObjectClassDefinition(
-			name = "Game Configuration",
-			description = "The configuration for the famous guessing game.")
-	public @interface Config {
-		@AttributeDefinition(name="Easy", description="Maximum value for easy")
-		int easy_max() default 10;
-		
-		@AttributeDefinition(name="Medium", description="Maximum value for medium")
-		int medium_max() default 50;
+    @ObjectClassDefinition(name = "Game Configuration", description = "The configuration for the famous guessing game.")
+    public @interface Config {
+        @AttributeDefinition(name = "Easy", description = "Maximum value for easy")
+        int easy_max() default 10;
 
-		@AttributeDefinition(name="Hard", description="Maximum value for hard")
-		int hard_max() default 100;
-	}
-	 
-	private Config configuration;
-	
-	private final Random r = new Random(); 
+        @AttributeDefinition(name = "Medium", description = "Maximum value for medium")
+        int medium_max() default 50;
 
-	@Activate
-	protected void activate(final Config config) {
-		this.configuration = config;
-	}
+        @AttributeDefinition(name = "Hard", description = "Maximum value for hard")
+        int hard_max() default 100;
+    }
 
-	@Override
-	public Game startGame(final String name, final Level level) {
-		return new Game(name, level, r.nextInt(getMax(level)) + 1);
-	}
+    @Activate
+    private Config configuration;
 
-	public int getMax(final Level level) {
-	    int max = 0;
-		switch (level) {
-			case EASY : max = configuration.easy_max(); break;
-			case MEDIUM : max = configuration.medium_max(); break;
-			case HARD : max = configuration.hard_max(); break;
-		}
-        return max;		
-	}
+    private final Random r = new Random();
 
-	@Override
-	public int nextGuess(final Game status, final int guess) {
-    	status.incAttempts();
-    	if ( status.getNumber() == guess ) {
-    		return 0;
-    	}
-    	if ( status.getNumber() > guess ) {
-    		return -1;
-    	}
-		return +1;
-	}
+    @Override
+    public Game startGame(final String name, final Level level) {
+        return new Game(name, level, r.nextInt(getMax(level)) + 1);
+    }
+
+    @Override
+    public int getMax(final Level level) {
+        int max = 0;
+        switch (level) {
+        case EASY:
+            max = configuration.easy_max();
+            break;
+        case MEDIUM:
+            max = configuration.medium_max();
+            break;
+        case HARD:
+            max = configuration.hard_max();
+            break;
+        }
+        return max;
+    }
+
+    @Override
+    public int nextGuess(final Game status, final int guess) {
+        status.incAttempts();
+        if (status.getNumber() == guess) {
+            return 0;
+        }
+        if (status.getNumber() > guess) {
+            return -1;
+        }
+        return +1;
+    }
 }

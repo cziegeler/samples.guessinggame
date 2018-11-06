@@ -76,7 +76,7 @@
             <plugin>
                 <groupId>biz.aQute.bnd</groupId>
                 <artifactId>bnd-maven-plugin</artifactId>
-                <version>4.0.0</version>
+                <version>4.1.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -119,6 +119,12 @@
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.service.http.whiteboard</artifactId>
             <version>1.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.component</artifactId>
+            <version>1.4.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
