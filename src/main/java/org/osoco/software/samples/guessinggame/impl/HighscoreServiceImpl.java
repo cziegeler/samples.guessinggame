@@ -15,7 +15,6 @@
  */
 package org.osoco.software.samples.guessinggame.impl;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,46 +27,45 @@ import org.osoco.software.samples.guessinggame.HighscoreService;
 import org.osoco.software.samples.guessinggame.Level;
 import org.osoco.software.samples.guessinggame.Score;
 
-@Component
+@Component(service = HighscoreService.class)
 public class HighscoreServiceImpl implements HighscoreService {
 
-	public @interface Config {
-		int maxEntries() default 10;
-	}
-	
-	private Config configuration;
-	
-	private final Map<Level, List<Score>> table = new HashMap<Level, List<Score>>();
-	
+    public @interface Config {
+        int maxEntries() default 10;
+    }
+
+    private Config configuration;
+
+    private final Map<Level, List<Score>> table = new HashMap<Level, List<Score>>();
+
     @Activate
-	protected void activate(final Config config) {
-		this.configuration = config;
-	}
-	
-	@Override
-	public List<Score> getHighscores(final Level level) {
-		synchronized ( table ) {
-			return this.table.get(level);
-		}
-	}
+    protected void activate(final Config config) {
+        this.configuration = config;
+    }
 
-	@Override
-	public int addScore(final Level level, final Score score) {
-		synchronized ( table ) {
-		    List<Score> highscores = table.get(level);
-			if ( highscores == null ) {
-				highscores = new ArrayList<Score>();
-			} else {
-				highscores = new ArrayList<Score>(highscores);
-			}
-			highscores.add(score);
-			Collections.sort(highscores);
-			if ( highscores.size() > configuration.maxEntries() ) {
-				highscores.remove(configuration.maxEntries());
-			}
-			table.put(level, highscores);
-			return highscores.indexOf(score);
-		}
-	}
+    @Override
+    public List<Score> getHighscores(final Level level) {
+        synchronized (table) {
+            return this.table.get(level);
+        }
+    }
+
+    @Override
+    public int addScore(final Level level, final Score score) {
+        synchronized (table) {
+            List<Score> highscores = table.get(level);
+            if (highscores == null) {
+                highscores = new ArrayList<Score>();
+            } else {
+                highscores = new ArrayList<Score>(highscores);
+            }
+            highscores.add(score);
+            Collections.sort(highscores);
+            if (highscores.size() > configuration.maxEntries()) {
+                highscores.remove(configuration.maxEntries());
+            }
+            table.put(level, Collections.unmodifiableList(highscores));
+            return highscores.indexOf(score);
+        }
+    }
 }
-

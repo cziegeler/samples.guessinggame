@@ -27,7 +27,7 @@ import org.osoco.software.samples.guessinggame.Game;
 import org.osoco.software.samples.guessinggame.GameController;
 import org.osoco.software.samples.guessinggame.Level;
 
-@Component
+@Component(service = GameController.class)
 @Designate(ocd = GameControllerImpl.Config.class)
 @ServiceDescription("This is the core game component")
 public class GameControllerImpl implements GameController {
