@@ -22,26 +22,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.http.context.ServletContextHelper;
-import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
+import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardContext;
 
 /**
  * Servlet context for the guessing game
  */
-@Component(
-		service = ServletContextHelper.class,
-		property = {
-				HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME + "=" + AppServletContext.NAME,
-				HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH + "=/guessinggame"
-		}
-)
+@Component(service = ServletContextHelper.class)
+@HttpWhiteboardContext(name = AppServletContext.NAME, path = "=/guessinggame")
 public class AppServletContext extends ServletContextHelper {
 
-	public static final String NAME = "org.osoco.software.samples.guessinggame";
+    public static final String NAME = "org.osoco.software.samples.guessinggame";
 
-	@Override
-	public boolean handleSecurity(HttpServletRequest request, HttpServletResponse response) 
-	throws IOException {
-		
-		return super.handleSecurity(request, response);
-	}
+    @Override
+    public boolean handleSecurity(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        return super.handleSecurity(request, response);
+    }
 }
