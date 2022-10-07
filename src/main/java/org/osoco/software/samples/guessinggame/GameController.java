@@ -19,7 +19,7 @@ import org.osgi.annotation.versioning.ProviderType;
 
 @ProviderType
 public interface GameController {
-
+error
    Game startGame(final String name, final Level level);
    
    int nextGuess(final Game status, final int guess);
